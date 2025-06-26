@@ -1,2 +1,3 @@
 # skillet
-An OpenTofu runtime written in Rust
+
+An OpenTofu runtime to extend and standardize your IaC implementation.

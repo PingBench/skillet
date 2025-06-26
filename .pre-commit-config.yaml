@@ -1,0 +1,20 @@
+repos:
+  - repo: local
+    hooks:
+      - id: rustfmt
+        name: rustfmt
+        entry: bash -c 'cd skillet && cargo fmt --all -- --check'
+        language: system
+        types: [rust]
+
+      - id: clippy
+        name: clippy
+        entry: bash -c 'cd skillet && cargo clippy --all-targets --all-features -- -D warnings'
+        language: system
+        types: [rust]
+
+      - id: test
+        name: test
+        entry: bash -c 'cd skillet && cargo test --all'
+        language: system
+        types: [rust]
