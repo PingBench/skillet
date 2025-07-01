@@ -8,6 +8,6 @@ pub fn run(ctx: &Context) {
 
     if ctx.quiet {
         let json = serde_json::to_string_pretty(&boot.reconciled).unwrap();
-        println!("{}", json);
+        println!("{json}");
     }
 }
