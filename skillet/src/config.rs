@@ -119,7 +119,7 @@ pub fn user_select_profiles(
         ("shell", &reconciled.shell.profiles),
     ] {
         for (_, value) in profiles {
-            let entry = format!("{}.{}", section, value);
+            let entry = format!("{section}.{value}");
             if section == "env" {
                 defaults.push(items.len());
             }
