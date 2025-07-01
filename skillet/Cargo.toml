@@ -5,6 +5,8 @@ edition = "2024"
 license = "MIT"
 repository = "https://github.com/bpgould/skillet"
 description = "An OpenTofu runtime to extend and standardize your IaC implementation."
+keywords = "OpenTofu, Terraform, runtime, automation, Infrastructure, IaC"
+homepage= "https://github.com/bpgould/skillet"
 
 
 [dependencies]
