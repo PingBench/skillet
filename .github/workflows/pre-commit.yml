@@ -11,7 +11,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: skillet/skillet # <-- only once
+        working-directory: skillet/ # <-- only once
 
     steps:
       - name: Checkout source
