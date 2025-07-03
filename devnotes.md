@@ -9,3 +9,6 @@ run example: `cargo run -- --name Alice`
 `./target/release/skillet`
 
 `export PATH="$HOME/Documents/WORKSPACE/skillet/target/release:$PATH"`
+
+docs built via hidden command:
+`./target/release/skillet --markdown-help`

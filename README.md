@@ -9,3 +9,7 @@
 ![skillet logo](./assets/images/skillet_256.png)
 
 An OpenTofu runtime to extend and standardize your IaC implementation.
+
+## [📖 Command Line Interface (CLI) Documentation](./docs/cli.md)
+
+Cli docs are automatically built, however, there are some limitations via [clap-markdown](https://crates.io/crates/clap-markdown).
