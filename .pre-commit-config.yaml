@@ -1,20 +1,58 @@
 repos:
   - repo: local
     hooks:
-      - id: rustfmt
-        name: rustfmt
-        entry: bash -c 'cd skillet && cargo fmt --all -- --check'
+      - id: rust-fmt
+        name: Rust Format (cargo fmt)
+        entry: cargo
         language: system
+        pass_filenames: false
         types: [rust]
+        args:
+          [
+            "fmt",
+            "--all",
+            "--manifest-path",
+            "skillet/Cargo.toml",
+            "--",
+            "--check",
+          ]
 
-      - id: clippy
-        name: clippy
-        entry: bash -c 'cd skillet && cargo clippy --all-targets --all-features -- -D warnings'
+      - id: rust-clippy
+        name: Rust Lint (cargo clippy)
+        entry: cargo
         language: system
+        pass_filenames: false
         types: [rust]
+        args:
+          [
+            "clippy",
+            "--all-targets",
+            "--all-features",
+            "--manifest-path",
+            "skillet/Cargo.toml",
+            "--",
+            "-D",
+            "warnings",
+          ]
 
-      - id: test
-        name: test
-        entry: bash -c 'cd skillet && cargo test --all'
+      - id: rust-test
+        name: Rust Test (cargo test)
+        entry: cargo
         language: system
+        pass_filenames: false
         types: [rust]
+        args: ["test", "--all", "--manifest-path", "skillet/Cargo.toml"]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: v8.18.2
+    hooks:
+      - id: gitleaks
+        args: ["--verbose"]
