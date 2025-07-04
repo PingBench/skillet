@@ -1,0 +1,30 @@
+name: Update CLI Docs
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install crate from crates.io
+        run: cargo install skillet
+
+      - name: Generate CLI docs
+        run: |
+          mkdir -p docs
+          skillet --markdown-help > docs/cli.md
+
+      - name: Commit CLI docs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update CLI docs for ${{ github.ref_name }}"

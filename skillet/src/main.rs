@@ -14,10 +14,7 @@ fn main() {
     let cli = Cli::parse();
 
     if cli.markdown_help {
-        let md = clap_markdown::help_markdown::<Cli>();
-        std::fs::create_dir_all("../docs").unwrap();
-        std::fs::write("../docs/cli.md", md).unwrap();
-        println!("docs/cli.md written.");
+        println!("{}", clap_markdown::help_markdown::<Cli>());
         return;
     }
 
