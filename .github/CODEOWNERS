@@ -1,0 +1,4 @@
+# CODEOWNERS
+# This makes @bpgould the owner of everything in the repo.
+
+* @bpgould
