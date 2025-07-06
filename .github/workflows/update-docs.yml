@@ -32,3 +32,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update CLI docs for ${{ github.ref_name }}"
+          push_options: "--force"
+        env:
+          GIT_AUTH_TOKEN: ${{ secrets.PUSH_DOCS }}
