@@ -5,6 +5,7 @@ use std::path::PathBuf;
 mod commands {
     pub mod conf;
 }
+mod aws;
 mod config;
 
 mod cli;
@@ -14,7 +15,7 @@ fn main() {
     let cli = Cli::parse();
 
     if cli.markdown_help {
-        println!("{}\n", clap_markdown::help_markdown::<Cli>());
+        println!("{}", clap_markdown::help_markdown::<Cli>());
         return;
     }
 
