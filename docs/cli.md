@@ -18,10 +18,10 @@ Terraform wrapper CLI
 
 ###### **Subcommands:**
 
-* `config` —
-* `init` —
-* `plan` —
-* `apply` —
+* `config` — 
+* `init` — 
+* `plan` — 
+* `apply` — 
 
 ###### **Options:**
 
@@ -60,3 +60,5 @@ Terraform wrapper CLI
     This document was generated automatically by
     <a href="https://crates.io/crates/clap-markdown"><code>clap-markdown</code></a>.
 </i></small>
+
+
