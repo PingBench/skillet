@@ -29,6 +29,17 @@ jobs:
           mkdir -p docs
           ./skillet/target/release/skillet --markdown-help > docs/cli.md
 
+      - name: Set up Python (for pre-commit)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: Run pre-commit on docs
+        run: pre-commit run --files docs/cli.md || true
+
       - name: Create PR with updated CLI docs
         uses: peter-evans/create-pull-request@v5
         with:
