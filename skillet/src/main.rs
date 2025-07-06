@@ -14,7 +14,7 @@ fn main() {
     let cli = Cli::parse();
 
     if cli.markdown_help {
-        println!("{}", clap_markdown::help_markdown::<Cli>());
+        println!("{}\n", clap_markdown::help_markdown::<Cli>());
         return;
     }
 
