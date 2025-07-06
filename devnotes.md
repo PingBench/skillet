@@ -17,3 +17,12 @@ docs built via hidden command:
 git tag -a vX.Y.Z -m "Release vX.Y.Z"
 git push origin vX.Y.Z
 ```
+
+how to release:
+
+```shell
+git checkout main
+git pull
+git tag -a v1.2.3 -m "Release v1.2.3"
+git push origin v1.2.3
+```

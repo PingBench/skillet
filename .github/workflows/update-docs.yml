@@ -2,8 +2,8 @@ name: Update CLI Docs
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
 
 jobs:
   update-docs:
@@ -16,13 +16,14 @@ jobs:
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install crate from crates.io
-        run: cargo install skillet
+      - name: Build current code
+        run: cargo build --release
+        working-directory: skillet
 
       - name: Generate CLI docs
         run: |
           mkdir -p docs
-          skillet --markdown-help > docs/cli.md
+          ./skillet/target/release/skillet --markdown-help > docs/cli.md
 
       - name: Commit CLI docs
         uses: stefanzweifel/git-auto-commit-action@v5

@@ -2,7 +2,8 @@ name: Rust Pre-Commit Checks
 
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   rust-checks:
