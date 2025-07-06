@@ -38,3 +38,4 @@ jobs:
           branch: update/cli-docs
           author: "bpgould <38466458+bpgould@users.noreply.github.com>"
           delete-branch: true
+          token: ${{ secrets.DOCS_TOKEN }}
