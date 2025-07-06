@@ -6,7 +6,8 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: write # needed to push to branch & open PR
+  pull-requests: write # needed to open PR
 
 jobs:
   update-docs:
@@ -28,10 +29,12 @@ jobs:
           mkdir -p docs
           ./skillet/target/release/skillet --markdown-help > docs/cli.md
 
-      - name: Commit CLI docs
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Create PR with updated CLI docs
+        uses: peter-evans/create-pull-request@v5
         with:
-          commit_message: "Update CLI docs for ${{ github.ref_name }}"
-          push_options: "--force"
-        env:
-          GIT_AUTH_TOKEN: ${{ secrets.PUSH_DOCS }}
+          commit-message: "Update CLI docs"
+          title: "Update CLI docs"
+          body: "Automated update of CLI docs after push to main."
+          branch: update/cli-docs
+          author: "bpgould <38466458+bpgould@users.noreply.github.com>"
+          delete-branch: true
