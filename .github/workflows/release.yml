@@ -1,3 +1,12 @@
+name: Release Rust Crate
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*" # only trigger publish step when a version tag is pushed
+
 jobs:
   build-test-release:
     runs-on: ubuntu-latest

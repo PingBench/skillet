@@ -12,3 +12,8 @@ run example: `cargo run -- --name Alice`
 
 docs built via hidden command:
 `./target/release/skillet --markdown-help`
+
+```shell
+git tag -a vX.Y.Z -m "Release vX.Y.Z"
+git push origin vX.Y.Z
+```
