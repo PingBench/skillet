@@ -1,3 +1,4 @@
+use crate::aws::authenticate_profiles;
 use colored_json::{ColorMode, ToColoredJson};
 use dotenvy::from_path_iter;
 use indexmap::IndexMap;
@@ -161,8 +162,15 @@ pub fn bootstrap(quiet: bool) -> BootInfo {
         "Use SPACE to toggle",
     );
 
-    // TODO: call aws::authenticate_profiles(&profiles, quiet);
-    // TODO: terraform_auth::add_provider_blocks(...);
+    // ✅ Run async authenticate_profiles inside a tokio runtime
+    let validity_map = {
+        let rt = tokio::runtime::Runtime::new().expect("Failed to create tokio runtime");
+        rt.block_on(authenticate_profiles(&profiles, quiet))
+    };
+
+    if !quiet {
+        println!("SSO profile validity: {:#?}", validity_map);
+    }
 
     BootInfo {
         env_cfg,

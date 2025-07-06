@@ -8,7 +8,7 @@
 
 ![skillet logo](./assets/images/skillet_256.png)
 
-An OpenTofu runtime to extend and standardize your IaC implementation.
+An OpenTofu runtime to extend and standardize your IaC implementation. Currently only supporting the AWS Provider.
 
 ## [📖 Command Line Interface (CLI) Documentation](./docs/cli.md)
 

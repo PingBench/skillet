@@ -10,6 +10,15 @@ run example: `cargo run -- --name Alice`
 
 `export PATH="$HOME/Documents/WORKSPACE/skillet/target/release:$PATH"`
 
+with watch:
+
+```shell
+cargo watch -x check            # just check
+cargo watch -x test             # run tests
+cargo watch -x "build --release"
+cargo watch -x "run -- --quiet" # pass args to your binary
+```
+
 docs built via hidden command:
 `./target/release/skillet --markdown-help`
 
