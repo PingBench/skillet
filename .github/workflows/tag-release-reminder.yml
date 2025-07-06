@@ -14,11 +14,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check if PR title contains version tag
+      - name: Checkout PR branch with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # required to get full git history & tags
+
+      - name: Fetch tags
+        run: git fetch --tags
+
+      - name: Find if any commit in PR branch has a tag
         id: check_tag
         run: |
-          if [[ "${{ github.event.pull_request.title }}" =~ v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+          # Get the merge base between PR branch and main
+          BASE=$(git merge-base origin/main HEAD)
+
+          # Get all commits in this PR branch (not in main)
+          COMMITS=$(git rev-list $BASE..HEAD)
+
+          FOUND_TAG=""
+          for COMMIT in $COMMITS; do
+            TAG=$(git tag --points-at $COMMIT)
+            if [[ -n "$TAG" ]]; then
+              FOUND_TAG=$TAG
+              break
+            fi
+          done
+
+          if [[ -n "$FOUND_TAG" ]]; then
             echo "has_tag=true" >> $GITHUB_OUTPUT
+            echo "tag_value=$FOUND_TAG" >> $GITHUB_OUTPUT
           else
             echo "has_tag=false" >> $GITHUB_OUTPUT
           fi
@@ -33,10 +57,29 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.issue.number,
               body: [
-                "⚠️ **Reminder: This PR does not appear to include a release tag in the title.**",
+                "⚠️ **Reminder: No release tag was found on any commit in this PR branch.**",
                 "",
                 "✅ Please remember to create a Git tag when merging (e.g., `git tag -a vX.Y.Z -m \"Release vX.Y.Z\"` and `git push origin vX.Y.Z`).",
                 "",
                 "Thank you!"
+              ].join("\n")
+            })
+
+      - name: Comment on PR if tag is found
+        if: steps.check_tag.outputs.has_tag == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commitUrl = `https://github.com/${{ github.repository }}/commit/${{ steps.check_tag.outputs.tag_commit }}`
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                `🎉 **Release tag detected on PR branch: \`${{ steps.check_tag.outputs.tag_value }}\`**`,
+                "",
+                `🔗 [View commit where tag was applied](${commitUrl})`,
+                "",
+                "✅ Looks good — this PR branch already contains a release tag."
               ].join("\n")
             })
